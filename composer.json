@@ -1,0 +1,36 @@
+{
+  "name": "ssgonchar/fast_model",
+  "description": "Base model with cache.",
+  "keywords": [
+    "model",
+    "cache"
+  ],
+  "homepage": "https://github.com/ssgonchar/FastModel",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergey Gonchar",
+      "email": "fingercrew2@gmail.com",
+      "homepage": "http://webchik.com.ua",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "replace": {
+  },
+  "autoload": {
+    "psr-4": {
+      "SSGonchar\\FastModel\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SSGonchar\\FastModel\\Test\\": "tests"
+    }
+  }
+}
