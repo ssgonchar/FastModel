@@ -1,21 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 1:29
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 1:29
+     */
 
 namespace SSGonchar\FastModel\SEUtil;
 
-define('CACHE_LIFETIME_TAG', 1209600);      //14d
-define('CACHE_LIFETIME_LONG', 86400);       //1d
-define('CACHE_LIFETIME_STANDARD', 10800);   //3h
-define('CACHE_LIFETIME_ONLINE', 600);       //10m
-define('CACHE_LIFETIME_SHORT', 300);        //5m
-define('CACHE_LIFETIME_30S', 30);            //30s
-define('CACHE_LIFETIME_MIN', 60);            //1m
-define('CACHE_LIFETIME_LOCK', 10);          //10s
+define('CACHE_LIFETIME_TAG', 1209600); //14d
+define('CACHE_LIFETIME_LONG', 86400); //1d
+define('CACHE_LIFETIME_STANDARD', 10800); //3h
+define('CACHE_LIFETIME_ONLINE', 600); //10m
+define('CACHE_LIFETIME_SHORT', 300); //5m
+define('CACHE_LIFETIME_30S', 30); //30s
+define('CACHE_LIFETIME_MIN', 60); //1m
+define('CACHE_LIFETIME_LOCK', 10); //10s
 
 define('CACHE_TAG_PREFIX', 'ct-');
 define('CACHE_LOCK_PREFIX', 'l-');
@@ -36,7 +36,9 @@ class Cache
      */
     public function __construct($connection_settings)
     {
-        if (CACHE_ENABLED == 'no') return;
+        if (CACHE_ENABLED == 'no') {
+            return;
+        }
         $this->_connect($connection_settings);
     }
 
@@ -49,7 +51,9 @@ class Cache
         $this->connection = new \Memcache();
         $is_connected = @$this->connection->connect($connection_settings['host'], $connection_settings['port']);
 
-        if (!$is_connected) $this->connection = null;
+        if (!$is_connected) {
+            $this->connection = null;
+        }
 
         return $is_connected;
     }
@@ -77,7 +81,10 @@ class Cache
      */
     public static function SetData($key, $value, $tag_names = array(), $lifetime = CACHE_LIFETIME_STANDARD)
     {
-        if (CACHE_ENABLED == 'no') return false; // 2010.11.01, zharkov:
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
+        // 2010.11.01, zharkov:
         $cache = Cache::Create();
         return $cache->_set_data($key, $value, $tag_names, $lifetime);
     }
@@ -86,7 +93,7 @@ class Cache
      * @param $key
      * @param $value
      * @param $tag_names
-     * @param $lifetime
+     * @param integer $lifetime
      * @return bool
      */
     function _set_data($key, $value, $tag_names, $lifetime)
@@ -117,7 +124,9 @@ class Cache
             $values['tags'] = $tags;
         }
 
-        if (CACHE_LOG == 'yes') Log::AddLine(LOG_CACHE, "set: \t" . var_export($key, true) . "\n" . var_export($values, true));
+        if (CACHE_LOG == 'yes') {
+            Log::AddLine(LOG_CACHE, "set: \t" . var_export($key, true) . "\n" . var_export($values, true));
+        }
 
         return $this->_set_key($key, $values, $lifetime);
     }
@@ -130,26 +139,35 @@ class Cache
     public static function SetLock($key, $lifetime = CACHE_LIFETIME_LOCK)
     {
         //print_r($key);
-        if (CACHE_ENABLED == 'no') return true; // 2010.11.01, zharkov:
+        if (CACHE_ENABLED == 'no') {
+            return true;
+        }
+        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_add_key(CACHE_LOCK_PREFIX . $key, true, $lifetime);
     }
 
     /**
-     * @param $key
-     * @param $value
-     * @param $lifetime
+     * @param string $key
+     * @param boolean $value
+     * @param integer $lifetime
      * @return bool
      */
     function _add_key($key, $value, $lifetime)
     {
-        if (CACHE_PREFIX !== '') $key = CACHE_PREFIX . $key;
+        if (CACHE_PREFIX !== '') {
+            $key = CACHE_PREFIX . $key;
+        }
 
-        if (empty($this->connection)) return false;
+        if (empty($this->connection)) {
+            return false;
+        }
 
         //if (!defined('ENABLE_CACHE') OR ENABLE_CACHE != 'yes') return false;
-        if (CACHE_LOG == 'yes') Log::AddLine(LOG_CACHE, "add: \t" . $key . ':' . $lifetime);
+        if (CACHE_LOG == 'yes') {
+            Log::AddLine(LOG_CACHE, "add: \t" . $key . ':' . $lifetime);
+        }
 
         return $this->connection->add($key, $value, false, $lifetime);
     }
@@ -162,9 +180,15 @@ class Cache
      */
     function _set_key($key, $value, $lifetime)
     {
-        if (CACHE_PREFIX !== '') $key = CACHE_PREFIX . $key;
-        if (empty($this->connection)) return false;
-        if (CACHE_LOG == 'yes') Log::AddLine(LOG_CACHE, "set: \t" . $key . ':' . $lifetime);
+        if (CACHE_PREFIX !== '') {
+            $key = CACHE_PREFIX . $key;
+        }
+        if (empty($this->connection)) {
+            return false;
+        }
+        if (CACHE_LOG == 'yes') {
+            Log::AddLine(LOG_CACHE, "set: \t" . $key . ':' . $lifetime);
+        }
 
         return $this->connection->set($key, $value, false, $lifetime);
     }
@@ -175,7 +199,10 @@ class Cache
      */
     public static function GetData($key)
     {
-        if (CACHE_ENABLED == 'no') return null; // 2010.11.01, zharkov:
+        if (CACHE_ENABLED == 'no') {
+            return null;
+        }
+        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_get_data($key);
@@ -187,7 +214,10 @@ class Cache
      */
     public static function IsLocked($key)
     {
-        if (CACHE_ENABLED == 'no') return false; // 2010.11.01, zharkov:
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
+        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_get_key(CACHE_LOCK_PREFIX . $key);
@@ -201,7 +231,9 @@ class Cache
     {
         $result = $this->_get_key($key);
 
-        if (empty($result)) return null;
+        if (empty($result)) {
+            return null;
+        }
 
         $rowset = array();
         $rowset['data'] = isset($result['data']) ? $result['data'] : null;
@@ -224,7 +256,9 @@ class Cache
             }
         }
 
-        if (CACHE_LOG == 'yes') Log::AddLine(LOG_CACHE, "get: \t" . var_export($key, true) . "\n" . var_export($result, true));
+        if (CACHE_LOG == 'yes') {
+            Log::AddLine(LOG_CACHE, "get: \t" . var_export($key, true) . "\n" . var_export($result, true));
+        }
 
         return $rowset;
     }
@@ -246,23 +280,27 @@ class Cache
             }
         }
 
-        if (empty($this->connection)) return false;
+        if (empty($this->connection)) {
+            return false;
+        }
 
         $result = $this->connection->get($key);
 
-        if (CACHE_LOG == 'yes')
-            if (is_array($key)) {
+        if (CACHE_LOG == 'yes') {
+                    if (is_array($key)) {
                 foreach ($key as $k) {
                     if (!isset($result[$k]))
                         Log::AddLine(LOG_CACHE, "miss k: \t" . var_export($k, true));
-                    else
-                        Log::AddLine(LOG_CACHE, "hit k: \t" . var_export($k, true));
+        } else {
+                                            Log::AddLine(LOG_CACHE, "hit k: \t" . var_export($k, true));
+                    }
                 }
             } else {
-                if (!isset($result) || $result === false)
-                    Log::AddLine(LOG_CACHE, "miss: \t" . var_export($key, true));
-                else
-                    Log::AddLine(LOG_CACHE, "hit: \t" . var_export($key, true));
+                if (!isset($result) || $result === false) {
+                                    Log::AddLine(LOG_CACHE, "miss: \t" . var_export($key, true));
+                } else {
+                                    Log::AddLine(LOG_CACHE, "hit: \t" . var_export($key, true));
+                }
             }
 
 
@@ -275,7 +313,9 @@ class Cache
      */
     public static function ClearKey($key)
     {
-        if (CACHE_ENABLED == 'no') return false;
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
 
         $cache = Cache::Create();
         return $cache->_clear_key($key);
@@ -289,7 +329,9 @@ class Cache
      */
     public static function SetKey($key, $value, $lifetime = CACHE_LIFETIME_STANDARD)
     {
-        if (CACHE_ENABLED == 'no') return false;
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
 
         $cache = Cache::Create();
         return $cache->_set_key($key, $value, $lifetime);
@@ -301,7 +343,9 @@ class Cache
      */
     public static function GetKey($key)
     {
-        if (CACHE_ENABLED == 'no') return null;
+        if (CACHE_ENABLED == 'no') {
+            return null;
+        }
 
         $cache = Cache::Create();
         return $cache->_get_key($key);
@@ -313,19 +357,23 @@ class Cache
      */
     public static function ClearLock($key)
     {
-        if (CACHE_ENABLED == 'no') return false;
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
 
         $cache = Cache::Create();
         return $cache->_clear_key(CACHE_LOCK_PREFIX . $key);
     }
 
     /**
-     * @param $tag
+     * @param string $tag
      * @return bool
      */
     public static function ClearTag($tag)
     {
-        if (CACHE_ENABLED == 'no') return false;
+        if (CACHE_ENABLED == 'no') {
+            return false;
+        }
 
         $cache = Cache::Create();
         $cache->_clear_key($tag);
@@ -338,11 +386,17 @@ class Cache
      */
     function _clear_key($key)
     {
-        if (CACHE_PREFIX !== '') $key = CACHE_PREFIX . $key;
+        if (CACHE_PREFIX !== '') {
+            $key = CACHE_PREFIX . $key;
+        }
 
-        if (empty($this->connection)) return false;
+        if (empty($this->connection)) {
+            return false;
+        }
 
-        if (CACHE_LOG == 'yes') Log::AddLine(LOG_CACHE, "clear: \t" . $key);
+        if (CACHE_LOG == 'yes') {
+            Log::AddLine(LOG_CACHE, "clear: \t" . $key);
+        }
 
         return $this->connection->delete($key);
     }
@@ -361,7 +415,9 @@ class Cache
      */
     function _flush()
     {
-        if (empty($this->connection)) return false;
+        if (empty($this->connection)) {
+            return false;
+        }
 
         return $this->connection->flush();
     }
