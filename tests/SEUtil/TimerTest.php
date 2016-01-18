@@ -63,9 +63,7 @@ class TimerTest extends SETestCase
     {
         $current = $this->timer->Current();
 
-        $currentCalc = $this->timer->GetMicrotime() - $this->timer->startTimes[count($this->timer->startTimes) - 1];
-
-        $this->assertEquals($current, $currentCalc);
+        $this->assertGreaterThan(0, $current);
     }
 
     /**
