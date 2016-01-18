@@ -6,11 +6,11 @@ php:
     - 5.6
     - 7.0
 
+# faster builds on new travis setup not using sudo
+sudo: required
+
 services:
   - memcached
-
-# faster builds on new travis setup not using sudo
-sudo: false
 
 matrix:
     fast_finish: true
@@ -21,12 +21,13 @@ cache:
     directories:
         - $HOME/.composer/cache
 
+install:
+    - travis_retry composer install --no-interaction --prefer-dist
+    - sudo tests/data/memcache-setup.sh
+
 before_install:
     - travis_retry composer self-update
 
-install:
-    - travis_retry composer install --no-interaction --prefer-dist
-    - tests/data/memcache-setup.sh
 
 script:
     - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
