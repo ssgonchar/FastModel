@@ -253,7 +253,6 @@ class DatabaseConnection
         }
 
         $res = array();
-        $more_result = true;
         $counter = 1;
 
         do {

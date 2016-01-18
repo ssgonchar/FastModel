@@ -240,15 +240,14 @@ class Request
     }
 
     /**
-     *
-     *
-     * @param string $name
-     * @param array $params
-     * @param bool $default
-     * @param integer $length
-     * @param bool $strip_slashes
-     * @param bool $strip_tags
-     * @return string
+     * @param $name
+     * @param $params
+     * @param $default
+     * @param $length
+     * @param $strip_slashes
+     * @param $strip_tags
+     * @param bool|false $url_go
+     * @return string|void
      */
     static function _get_string_param($name, $params, $default, $length, $strip_slashes, $strip_tags, $url_go = false)
     {
@@ -302,11 +301,10 @@ class Request
     }
 
     /**
-     *
-     *
-     * @param string $name
-     * @param array $params
-     * @return string
+     * @param $name
+     * @param $params
+     * @param bool|false $url_go
+     * @return mixed|string
      */
     static function GetHtmlString($name, $params, $url_go = false)
     {
@@ -374,16 +372,15 @@ class Request
     }
 
     /**
-     *
-     *
-     * @param mixed $text
-     * @param boolean $auto_paragraph
-     * @param boolean $allow_youtube
+     * @param $text
+     * @param bool|false $auto_paragraph
+     * @param bool|false $allow_youtube
+     * @param bool|false $url_go
      * @return mixed
      */
     static function _purify_html($text, $auto_paragraph = false, $allow_youtube = false, $url_go = false)
     {
-        $config = HTMLPurifier_Config::createDefault();
+        $config = \HTMLPurifier_Config::createDefault();
         $config->set('Cache.SerializerPath', APP_CACHE);
 
         $config->set('URI.Host', APP_HOST);
@@ -416,7 +413,7 @@ class Request
         //
         //$config->set('Core', 'EscapeInvalidTags', true);
 
-        $purifier = new HTMLPurifier($config);
+        $purifier = new \HTMLPurifier($config);
 
         $result = $text;
 
@@ -434,8 +431,9 @@ class Request
     }
 
     /**
-     *
-     *
+     * @param $name
+     * @param $param
+     * @return array
      */
     function GetStringArray($name, $param)
     {
@@ -483,10 +481,11 @@ class Request
 
 
     /**
-     *
-     * @name =
-     * @value =
-     * @default =
+     * @param $name
+     * @param $value
+     * @param null $default
+     * @param bool|false $include_time
+     * @return bool|null|string
      */
     static function GetStringDate($name, $value, $default = null, $include_time = false)
     {
@@ -502,9 +501,8 @@ class Request
     }
 
     /**
-     *
-     *
-     * @param string $param
+     * @param $param
+     * @param $params
      * @return string
      */
     static function GetDate($param, $params)
@@ -569,10 +567,9 @@ class Request
     }
 
     /**
-     *
-     *
-     * @param string $param
-     * @return string
+     * @param $param
+     * @param $params
+     * @return bool|mixed|null|string
      */
     static function GetDateTime($param, $params)
     {
@@ -595,12 +592,9 @@ class Request
     }
 
     /**
-     *
-     *
-     *
-     * @param string $params
-     * @return string
-     * /
+     * @param $name
+     * @param $params
+     * @return array|bool|int|null|string
      */
     static function GetDateForDB($name, $params)
     {
@@ -627,10 +621,8 @@ class Request
     }
 
     /**
-     *
-     *
-     *
-     * @param string $text
+     * @param $text
+     * @param bool|false $url_go
      */
     static function _parse_external_links($text, $url_go = false)
     {

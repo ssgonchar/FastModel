@@ -150,7 +150,6 @@ class Table
     function _fetch_multi_set()
     {
         $res = array();
-        $more_result = true;
 
         do {
             if ($result = mysqli_store_result($this->db->connection)) {
@@ -249,11 +248,7 @@ class Table
 
 
     /**
-     *
-     *
-     *
-     *
-     *
+     * @param array $arg
      * @return array
      */
     public function SelectList($arg = array())
@@ -300,13 +295,8 @@ class Table
 
 
     /**
-     *
-     *
-     *
-     *
-     *
-     *
-     * @param mixed $field
+     * @param $field
+     * @param array $arg
      * @return array
      */
     public function SelectListAssoc($field, $arg = array())
@@ -327,9 +317,8 @@ class Table
 
 
     /**
-     *
-     *
-     * @return integer
+     * @param array $arg
+     * @return mixed
      */
     public function Count($arg = array())
     {
@@ -358,9 +347,8 @@ class Table
 
 
     /**
-     *
-     *
-     * @return integer
+     * @param array $arg
+     * @return int
      */
     public function DeleteList($arg = array())
     {
@@ -395,8 +383,7 @@ class Table
 
 
     /**
-     *
-     *
+     * @param array $arg
      * @return bool
      */
     public function Exists($arg = array())
@@ -543,10 +530,9 @@ class Table
     }
 
     /**
-     *
-     *
-     * @param string $name
-     * @param array $values
+     * @param $name
+     * @param $values
+     * @return resource
      */
     function CallStoredProcedure($name, $values)
     {
@@ -564,10 +550,9 @@ class Table
     }
 
     /**
-     *
-     *
-     * @param string $name
-     * @param array $values
+     * @param $name
+     * @param $values
+     * @return null
      */
     function CallStoredFunction($name, $values)
     {

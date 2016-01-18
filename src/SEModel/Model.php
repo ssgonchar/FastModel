@@ -10,6 +10,7 @@ namespace SSGonchar\FastModel\SEModel;
 
 use SSGonchar\FastModel\SEUtil\Cache;
 use SSGonchar\FastModel\SEUtil\Db\Table;
+use SSGonchar\FastModel\SEUtil\Request;
 
 //use SSGonchar\FastModel\SEUtil\Request;
 
@@ -141,7 +142,7 @@ class Model
     public static function getSession()
     {
         if (!self::$session) {
-            self::$session = self::setSession($_SESSION);
+            self::setSession($_SESSION);
         }
         return self::$session;
     }
@@ -575,7 +576,7 @@ class Model
      */
     public function CallStoredProcedure($name, $values)
     {
-        require_once(APP_PATH . 'classes/models/sp.class.php');
+        //require_once(APP_PATH . 'classes/models/sp.class.php');
 
         ///print_r($name);
         //print_r($values);
@@ -876,11 +877,11 @@ class Model
 
 
     /**
-     * @param array $ids
-     * @param string $sp_name
-     * @param array tags
-     * @param array $sp_params
-     * @param string $cache_prefix
+     * @param $cache_prefix
+     * @param $sp_name
+     * @param $ids
+     * @param $tags
+     * @param null $sp_params
      * @return array
      */
     public function _get_entities_by_ids($cache_prefix, $sp_name, $ids, $tags, $sp_params = null)
@@ -980,7 +981,6 @@ class Model
 
         $result = array();
         $count = count($data);
-        $exists = true;
         $minpid = PHP_INT_MAX;
 
         for ($i = 0; $i < $count; $i++) {
@@ -1030,7 +1030,7 @@ class Model
     {
         $pattern = empty($pattern) ? "[^a-zA-Z0-9-]+" : $pattern;
 
-        $title = strtolower(Translit::Encode($title));
+        $title = strtolower(\Translit::Encode($title));
         $title = preg_replace("#" . $pattern . "#us", '', $title);
 
         preg_match_all("#(\d+-\d+)+#us", $title, $matches);

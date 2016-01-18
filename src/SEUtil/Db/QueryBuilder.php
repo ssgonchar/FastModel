@@ -114,7 +114,7 @@ class QueryBuilder
      *       ('select', 'update', 'delete')
      *
      */
-    function Prepare($params)
+    public function Prepare($params)
     {
         $this->params = $params;
 

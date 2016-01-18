@@ -35,6 +35,8 @@ define('MAX_LENGTH_PER_PARAM', 100);
 define('CACHE_ENABLED', 'yes');
 define('MEMCACHE_HOST', 'localhost');
 define('MEMCACHE_PORT', '11211');
+define('CACHE_PREFIX', 'sefm_');
+define('APP_CACHE', 'sefm_');
 
 /**
  * Log
@@ -57,7 +59,7 @@ $_SESSION = array(
 
 \SSGonchar\FastModel\SEModel\Model::setSession($_SESSION);
 
-/** @var Model $model */
+/** @var \SSGonchar\FastModel\SEModel\Model $model */
 $email = new Email('emails');
 
 var_dump($email);

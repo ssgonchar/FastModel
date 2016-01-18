@@ -29,7 +29,8 @@ class FunctionQueryBuilder extends QueryBuilder
     }
 
     /**
-     *
+     * @param $params
+     * @return string
      */
     function Prepare($params)
     {
