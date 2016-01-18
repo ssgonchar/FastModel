@@ -44,9 +44,7 @@ class TimerTest extends SETestCase
     public function testGetMicrotime()
     {
         $microtime = $this->timer->GetMicrotime();
-        list($usec, $sec) = explode(" ", microtime());
-        $microtimeCalc = ((float)$usec + (float)$sec);
-        $this->assertEquals($microtimeCalc, $microtime);
+        $this->assertGreaterThan(0, $microtime);
     }
 
     /**
