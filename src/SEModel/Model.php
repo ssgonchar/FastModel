@@ -70,7 +70,7 @@ class Model
     public static $session;
 
     /**
-     * @param $tableName
+     * @param string $tableName
      */
     public function __construct($tableName)
     {
@@ -558,7 +558,7 @@ class Model
     /**
      * Execute raw SQL query.
      * @param $sql_text
-     * @return mixed
+     * @return resource|null
      */
     public function ExecuteQuery($sql_text)
     {

@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 0:01
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 0:01
+     */
 
 namespace SSGonchar\FastModel\SEUtil\Db;
 
@@ -111,7 +111,7 @@ class Table
 
 
     /**
-     * @param $resource
+     * @param resource $resource
      * @return array|null
      */
     private function _fetch_row($resource)
@@ -121,7 +121,7 @@ class Table
 
 
     /**
-     * @param $resource
+     * @param resource $resource
      * @return array
      */
     public function _fetch_array($resource) //!must be private
@@ -240,8 +240,9 @@ class Table
         $resource = $this->_exec_query($params);
         $result = $this->_fetch_array($resource);
 
-        if (count($result))
-            return $result[0];
+        if (count($result)) {
+                    return $result[0];
+        }
 
         return null;
     }
@@ -253,7 +254,6 @@ class Table
      *
      *
      *
-     * @param mixed $params
      * @return array
      */
     public function SelectList($arg = array())
@@ -291,8 +291,9 @@ class Table
 
         $result = $this->SelectList($params);
 
-        if (count($result))
-            return $result[0];
+        if (count($result)) {
+                    return $result[0];
+        }
 
         return null;
     }
@@ -328,7 +329,6 @@ class Table
     /**
      *
      *
-     * @param mixed $params
      * @return integer
      */
     public function Count($arg = array())
@@ -360,7 +360,6 @@ class Table
     /**
      *
      *
-     * @param mixed $params
      * @return integer
      */
     public function DeleteList($arg = array())
@@ -398,7 +397,6 @@ class Table
     /**
      *
      *
-     * @param mixed $params
      * @return bool
      */
     public function Exists($arg = array())
@@ -580,7 +578,9 @@ class Table
         $resource = $this->_exec_query($params);
         $result = $this->_fetch_array($resource);
 
-        if (count($result)) return $result[0];
+        if (count($result)) {
+            return $result[0];
+        }
 
         return null;
     }
