@@ -23,7 +23,7 @@ cache:
 
 install:
     - travis_retry composer install --no-interaction --prefer-dist
-    - sudo tests/data/memcache-setup.sh
+    - tests/data/memcache-setup.sh
 
 before_install:
     - travis_retry composer self-update
