@@ -342,7 +342,7 @@ class Request
      *
      *
      * @param string|null $text
-     * @return mixed
+     * @return string|null
      */
     static function _filter_tags($text)
     {
@@ -375,7 +375,7 @@ class Request
     }
 
     /**
-     * @param $text
+     * @param string|null $text
      * @param bool|false $auto_paragraph
      * @param bool|false $allow_youtube
      * @param bool|false $url_go

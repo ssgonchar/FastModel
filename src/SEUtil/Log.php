@@ -99,7 +99,7 @@ class Log
     }
 
     /**
-     * @param $type
+     * @param integer $type
      * @param $str
      * @return string
      */
