@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 0:59
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 0:59
+     */
 namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
@@ -15,7 +15,7 @@ class InsertQueryBuilder extends QueryBuilder
     var $type;
 
     /**
-     * @param $db_connection
+     * @param resource $db_connection
      * @return QueryBuilder
      */
     public static function Create($db_connection)
@@ -46,9 +46,11 @@ class InsertQueryBuilder extends QueryBuilder
             $query .= 'IGNORE ';
         }
 
-        if ($fields == '()') // single record. INSERT {table name} SET {field}={value},...
+        if ($fields == '()') {
+            // single record. INSERT {table name} SET {field}={value},...
         {
             $this->type = 'single';
+        }
 
             $query .= $this->_prepare_table_clause();
             $values = $this->_prepare_values_clause();

@@ -9,8 +9,8 @@
 namespace SSGonchar\FastModel\SEModel;
 
 use SSGonchar\FastModel\SEUtil\Cache;
-use SSGonchar\FastModel\SEUtil\Request;
 use SSGonchar\FastModel\SEUtil\Db\Table;
+use SSGonchar\FastModel\SEUtil\Request;
 
 /**
  * Class Model
@@ -582,7 +582,9 @@ class Model
      */
     public function ClearTagById($id)
     {
-        if (!empty($this->object_alias)) Cache::ClearTag($this->object_alias . '-' . $id);
+        if (!empty($this->object_alias)) {
+            Cache::ClearTag($this->object_alias . '-' . $id);
+        }
     }
 
     /**
@@ -591,7 +593,9 @@ class Model
      */
     public function SetConnectionTimeZone($time_zone)
     {
-        if (!empty($time_zone)) $this->table->connection_time_zone = $time_zone;
+        if (!empty($time_zone)) {
+            $this->table->connection_time_zone = $time_zone;
+        }
     }
 
     /**
@@ -611,7 +615,9 @@ class Model
                     if ($pos2 !== false) {
                         $entity = substr($key, 1, $pos2 - 1);
                         $newkey = substr($key, $pos2 + 1);
-                        if (!array_key_exists($entity, $data[$i])) $data[$i][$entity] = array();
+                        if (!array_key_exists($entity, $data[$i])) {
+                            $data[$i][$entity] = array();
+                        }
                         $data[$i][$entity][$newkey] = $value;
                         unset($data[$i][$key]);
                     }
@@ -686,7 +692,9 @@ class Model
      */
     public function _fill_entity_array_info($recordset, $id_fieldname, $entityname, $cache_prefix, $sp_name, $tags = null, $sp_params = null)
     {
-        if (!isset($recordset) || empty($recordset) || !is_array($recordset)) return $recordset;
+        if (!isset($recordset) || empty($recordset) || !is_array($recordset)) {
+            return $recordset;
+        }
 
         $first_key = key($recordset);
         if (!isset($recordset[$first_key]) || !is_array($recordset[$first_key])) {
@@ -695,7 +703,9 @@ class Model
 
         $entity_ids = array();
         foreach ($recordset as $key => $row) {
-            if (isset($recordset[$key][$id_fieldname])) $entity_ids[] = $recordset[$key][$id_fieldname];
+            if (isset($recordset[$key][$id_fieldname])) {
+                $entity_ids[] = $recordset[$key][$id_fieldname];
+            }
         }
 
         $list = $this->_get_entities_array_by_ids($cache_prefix, $sp_name, $entity_ids, $tags, $sp_params, $id_fieldname);
@@ -730,9 +740,11 @@ class Model
             if (!empty($object) && isset($object['data']) && empty($object['outdated'])) {
                 $result[$id] = $object['data'];
             } else {
-                if (!in_array($id, $ids_not_in_cache) && $id > 0)   // 20101219, zharkov:
+                if (!in_array($id, $ids_not_in_cache) && $id > 0) {
+                    // 20101219, zharkov:
                 {
                     $ids_not_in_cache[] = $id;
+                }
                 }
             }
         }
@@ -770,7 +782,9 @@ class Model
                     if (isset($row[$id_fieldname])) {
                         $id_fieldname_id = $row[$id_fieldname];
 
-                        if (!isset($result[$id_fieldname_id])) $result[$id_fieldname_id] = array();
+                        if (!isset($result[$id_fieldname_id])) {
+                            $result[$id_fieldname_id] = array();
+                        }
 
                         $result[$id_fieldname_id][] = $row;
                     }
@@ -811,7 +825,9 @@ class Model
      */
     public function _fill_entity_info($recordset, $id_fieldname, $entityname, $cache_prefix, $sp_name, $tags = null, $sp_params = null)
     {
-        if (!isset($recordset) || empty($recordset) || !is_array($recordset)) return $recordset;
+        if (!isset($recordset) || empty($recordset) || !is_array($recordset)) {
+            return $recordset;
+        }
 
         $first_key = key($recordset);
         if (!isset($recordset[$first_key]) || !is_array($recordset[$first_key])) {
@@ -892,7 +908,9 @@ class Model
 
             if (isset($rowset[0])) {
                 foreach ($rowset[0] as $row) {
-                    if (!isset($row['id'])) continue;
+                    if (!isset($row['id'])) {
+                        continue;
+                    }
 
                     $cache_id = $cache_prefix . '-' . $row['id'];
 
@@ -933,7 +951,9 @@ class Model
      */
     public function _sort_tree($data)
     {
-        if (empty($data)) return $data;
+        if (empty($data)) {
+            return $data;
+        }
 
         $result = array();
         $count = count($data);
@@ -943,14 +963,18 @@ class Model
         for ($i = 0; $i < $count; $i++) {
             if ($data[$i]['id'] < PHP_INT_MAX) {
                 $minpid = $data[$i]['parent_id'];
-                if ($minpid == 0) break;
+                if ($minpid == 0) {
+                    break;
+                }
             }
         }
 
         $pidstack = array($minpid);
 
         do {
-            if (!count($pidstack)) break;
+            if (!count($pidstack)) {
+                break;
+            }
 
             $parent_id = $pidstack[count($pidstack) - 1];
             $exists = false;
@@ -965,7 +989,9 @@ class Model
                 }
             }
 
-            if (!$exists) array_pop($pidstack);
+            if (!$exists) {
+                array_pop($pidstack);
+            }
 
         } while ($exists || count($pidstack));
 
@@ -1001,7 +1027,9 @@ class Model
     public function _adjust_date($row)
     {
         foreach (array('created_at', 'modified_at', 'deleted_at', 'birthday', 'deadline', 'done_at', 'alert_date') as $key) {
-            if (isset($row[$key]) && ($row[$key] == '0000-00-00 00:00:00' || $row[$key] == '01.01.0001 0:00:00')) $row[$key] = '';
+            if (isset($row[$key]) && ($row[$key] == '0000-00-00 00:00:00' || $row[$key] == '01.01.0001 0:00:00')) {
+                $row[$key] = '';
+            }
         }
 
         return $row;

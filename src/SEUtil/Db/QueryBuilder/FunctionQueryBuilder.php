@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 0:53
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 0:53
+     */
 namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
@@ -12,6 +12,7 @@ use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 class FunctionQueryBuilder extends QueryBuilder
 {
     /**
+     * @param resource $db_connection
      * @return QueryBuilder
      */
     public static function Create($db_connection)

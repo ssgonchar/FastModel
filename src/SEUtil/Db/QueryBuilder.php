@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 0:02
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 0:02
+     */
 
 namespace SSGonchar\FastModel\SEUtil\Db;
 
@@ -399,15 +399,17 @@ class QueryBuilder
 
         if (!array_key_exists($number, $this->params[$clause])) {
             if (count($this->params[$clause]) > 1) {
-                if (array_key_exists(0, $this->params[$clause]))
-                    $this->params[$clause][$lower] = intval($this->params[$clause][0]);
-                else
-                    $this->params[$clause][$lower] = 0;
+                if (array_key_exists(0, $this->params[$clause])) {
+                                    $this->params[$clause][$lower] = intval($this->params[$clause][0]);
+                } else {
+                                    $this->params[$clause][$lower] = 0;
+                }
 
-                if (array_key_exists(1, $this->params[$clause]))
-                    $this->params[$clause][$number] = intval($this->params[$clause][1]);
-                else
-                    $this->params[$clause][$number] = 0;
+                if (array_key_exists(1, $this->params[$clause])) {
+                                    $this->params[$clause][$number] = intval($this->params[$clause][1]);
+                } else {
+                                    $this->params[$clause][$number] = 0;
+                }
             } else if (count($this->params[$clause]) > 0) {
                 $this->params[$clause][$number] = intval($this->params[$clause][0]);
             } else {
@@ -417,15 +419,17 @@ class QueryBuilder
         }
 
         $this->params[$clause][$number] = intval($this->params[$clause][$number]);
-        if ($this->params[$clause][$number] < 0)
-            $this->params[$clause][$number] = 0;
+        if ($this->params[$clause][$number] < 0) {
+                    $this->params[$clause][$number] = 0;
+        }
 
         if (!array_key_exists($lower, $this->params[$clause])) {
             $this->params[$clause][$lower] = 0;
         }
         $this->params[$clause][$lower] = intval($this->params[$clause][$lower]);
-        if ($this->params[$clause][$lower] < 0)
-            $this->params[$clause][$lower] = 0;
+        if ($this->params[$clause][$lower] < 0) {
+                    $this->params[$clause][$lower] = 0;
+        }
 
         $this->params[$clause] = array(
             $lower => $this->params[$clause][$lower],
@@ -458,7 +462,7 @@ class QueryBuilder
      *
      *
      *
-     * @param mixed $param
+     * @param string $param
      */
     function _assure_is_not_empty($param)
     {
@@ -480,7 +484,7 @@ class QueryBuilder
      *
      *
      *
-     * @param mixed $param
+     * @param string $param
      */
     function _assure_is_array($param)
     {
