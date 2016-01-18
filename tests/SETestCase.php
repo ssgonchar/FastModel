@@ -14,7 +14,7 @@ abstract class SETestCase extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (!defined(ROLE_GUEST)) {
+        if (!defined('ROLE_GUEST')) {
             /**
              * User roles
              */
