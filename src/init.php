@@ -50,7 +50,6 @@ $_SESSION = array(
 );
 
 \SSGonchar\FastModel\SEModel\Model::setSession($_SESSION);
-var_dump(\SSGonchar\FastModel\SEModel\Model::getSession());
 
 /** @var Model $model */
 $email = new Email('emails');

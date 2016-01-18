@@ -127,16 +127,22 @@ class Model
         $this->lang = isset($_REQUEST['lang']) ? Request::GetString('lang', $_REQUEST, '', 2) : $this->lang;
     }
 
-    public static function setSession($session)
+    /**
+     * @param $session
+     */
+    public static function setSession($session = null)
     {
         self::$session = $session;
     }
 
     /**
-     * @return array
+     * @return array|void
      */
     public static function getSession()
     {
+        if (!self::$session) {
+            self::$session = self::setSession($_SESSION);
+        }
         return self::$session;
     }
 
