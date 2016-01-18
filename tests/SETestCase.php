@@ -46,6 +46,6 @@ class SETestCase extends PHPUnit_Framework_TestCase
          * Log
          */
         define('LOG', 'yes');
-        define('APP_LOGS', 'tests/logs/');
+        define('APP_LOGS', 'tests\logs\/');
     }
 }
