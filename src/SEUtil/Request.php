@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 17.01.2016
- * Time: 23:55
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 17.01.2016
+     * Time: 23:55
+     */
 
 namespace SSGonchar\FastModel\SEUtil;
 
@@ -48,8 +48,9 @@ class Request
     public static function IsAjax()
     {
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-                    if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
-                return true;
+                    if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+                                    return true;
+                    }
         }
 
         if (isset($_REQUEST['JsHttpRequest'])) {
@@ -116,7 +117,7 @@ class Request
      * @param string $name
      * @param array $params
      * @param double $default
-     * @return numeric
+     * @return double
      */
     static function _get_numeric_param($name, $params, $default)
     {
@@ -158,7 +159,7 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @return numeric
+     * @return double
      */
     static function GetNumeric($name, $params)
     {
@@ -181,8 +182,9 @@ class Request
         $result = $default;
 
         if (isset($params[$name])) {
-                    if (is_numeric($params[$name]))
-                $result = intval($params[$name]);
+                    if (is_numeric($params[$name])) {
+                                    $result = intval($params[$name]);
+                    }
         }
 
         return ($result > 1000000000 ? 1000000000 : $result);
@@ -217,8 +219,9 @@ class Request
         $result = $default;
 
         if (isset($params[$name])) {
-                    if (getboolval($params[$name]))
-                $result = true;
+                    if (getboolval($params[$name])) {
+                                    $result = true;
+                    }
         }
 
         return $result;
@@ -244,7 +247,7 @@ class Request
      * @param $params
      * @param $default
      * @param $length
-     * @param $strip_slashes
+     * @param boolean $strip_slashes
      * @param $strip_tags
      * @param bool|false $url_go
      * @return string|void
@@ -338,7 +341,7 @@ class Request
     /**
      *
      *
-     * @param mixed $text
+     * @param string|null $text
      * @return mixed
      */
     static function _filter_tags($text)
@@ -457,24 +460,27 @@ class Request
         $result = array();
 
         $custom = array();
-        for ($i = 1; $i < func_num_args(); $i++)
-            $custom[] = func_get_arg($i);
+        for ($i = 1; $i < func_num_args(); $i++) {
+                    $custom[] = func_get_arg($i);
+        }
 
         foreach ($fields as $key) {
             $current = $files[$key];
             for ($i = 0; $i < count($custom); $i++) {
-                if (isset($current[$custom[$i]]))
-                    $current = $current[$custom[$i]];
-                else
-                    break;
+                if (isset($current[$custom[$i]])) {
+                                    $current = $current[$custom[$i]];
+                } else {
+                                    break;
+                }
             }
 
             $result[$key] = $current;
         }
 
         if (count($result) > 0);
-        if ($result['size'] > 0)
-            return $result;
+        if ($result['size'] > 0) {
+                    return $result;
+        }
 
         return null;
     }
@@ -594,7 +600,7 @@ class Request
     /**
      * @param $name
      * @param $params
-     * @return array|bool|int|null|string
+     * @return string|null
      */
     static function GetDateForDB($name, $params)
     {
@@ -621,7 +627,7 @@ class Request
     }
 
     /**
-     * @param $text
+     * @param string $text
      * @param bool|false $url_go
      */
     static function _parse_external_links($text, $url_go = false)

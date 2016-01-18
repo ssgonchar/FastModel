@@ -1,10 +1,10 @@
 <?php
 /**
-     * Created by PhpStorm.
-     * User: ssgonchar
-     * Date: 18.01.2016
-     * Time: 0:55
-     */
+ * Created by PhpStorm.
+ * User: ssgonchar
+ * Date: 18.01.2016
+ * Time: 0:55
+ */
 namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
