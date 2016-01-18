@@ -10,7 +10,7 @@ namespace SSGonchar\FastModel\Test;
 
 use PHPUnit_Framework_TestCase;
 
-class SETestCase extends PHPUnit_Framework_TestCase
+abstract class SETestCase extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
