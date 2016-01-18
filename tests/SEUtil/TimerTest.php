@@ -73,6 +73,7 @@ class TimerTest extends SETestCase
     /**
      *
      */
+    /*
     public function testStop()
     {
         $this->timer->Start();
@@ -85,5 +86,5 @@ class TimerTest extends SETestCase
         $stopCalc = $this->timer->GetMicrotime() - array_pop($this->timer->startTimes);
 
         $this->assertGreaterThan($stop, $stopCalc);
-    }
+    }*/
 }
