@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 2:37
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 2:37
+     */
 
 namespace SSGonchar\FastModel\SEUtil;
 
@@ -38,7 +38,7 @@ class Log
     var $fp;
 
     /**
-     * @param $log_file
+     * @param string $log_file
      */
     function __construct($log_file)
     {
@@ -56,7 +56,7 @@ class Log
     }
 
     /**
-     * @param $type
+     * @param integer $type
      * @param string $log_file
      * @return Log
      */
@@ -167,7 +167,7 @@ class Log
     }
 
     /**
-     * @param $type
+     * @param integer $type
      * @param $str
      */
     function _addLine($type, $str)
