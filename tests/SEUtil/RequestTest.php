@@ -6,7 +6,11 @@
  * Date: 18.01.2016
  * Time: 4:31
  */
-class RequestTest extends PHPUnit_Framework_TestCase
+namespace SSGonchar\FastModel\Test\SEUtil;
+
+use SSGonchar\FastModel\Test\SETestCase;
+
+class RequestTest extends SETestCase
 {
 
 }

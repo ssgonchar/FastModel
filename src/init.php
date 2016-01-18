@@ -36,6 +36,12 @@ define('CACHE_ENABLED', 'yes');
 define('MEMCACHE_HOST', 'localhost');
 define('MEMCACHE_PORT', '11211');
 
+/**
+ * Log
+ */
+define('LOG', 'yes');
+define('APP_LOGS', 'logs/');
+
 use SSGonchar\FastModel\SEMail\Email;
 
 if (array_key_exists('user', $_SESSION)) {

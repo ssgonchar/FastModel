@@ -7,7 +7,7 @@
  */
 namespace SSGonchar\FastModel\Test\SEUtil;
 
-use PHPUnit_Framework_TestCase;
+use SSGonchar\FastModel\Test\SETestCase;
 use SSGonchar\FastModel\SEUtil\Timer;
 use ReflectionClass;
 
@@ -16,40 +16,26 @@ use ReflectionClass;
  * Tests for {@see \SSGonchar\FastModel\SEUtil\Timer}
  * @covers \SSGonchar\FastModel\SEUtil\Timer
  */
-class TimerTest extends PHPUnit_Framework_TestCase
+class TimerTest extends SETestCase
 {
+    /**
+     * @var Timer
+     */
+    private $timer;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->timer = Timer::Start();
+    }
 
     /**
      *
      */
     public function testStart()
     {
-        $timer = Timer::Start();
-        $this->assertInstanceOf('\SSGonchar\FastModel\SEUtil\Timer', $timer);
-    }
-
-    /**
-     *
-     */
-    public function testStartedAt()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function testCurrent()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function testStop()
-    {
-
+        $this->assertInstanceOf('\SSGonchar\FastModel\SEUtil\Timer', $this->timer);
+        $this->assertGreaterThan(0, count($this->timer->startTimes));
     }
 
     /**
@@ -57,6 +43,42 @@ class TimerTest extends PHPUnit_Framework_TestCase
      */
     public function testGetMicrotime()
     {
+        $microtime = $this->timer->GetMicrotime();
+        list($usec, $sec) = explode(" ", microtime());
+        $microtimeCalc = ((float)$usec + (float)$sec);
+        $this->assertEquals($microtimeCalc, $microtime);
+    }
 
+    /**
+     *
+     */
+    public function testStartedAt()
+    {
+        $startedAt = $this->timer->StartedAt();
+        $this->assertEquals($startedAt, $this->timer->startTimes[0]);
+    }
+
+    /**
+     *
+     */
+    public function testCurrent()
+    {
+        $current = $this->timer->Current();
+
+        $currentCalc = $this->timer->GetMicrotime() - $this->timer->startTimes[count($this->timer->startTimes) - 1];
+
+        $this->assertEquals($current, $currentCalc);
+    }
+
+    /**
+     *
+     */
+    public function testStop()
+    {
+        $stop = $this->timer->Stop();
+
+        $stopCalc = $this->timer->GetMicrotime() - array_pop($this->timer->startTimes);
+
+        $this->assertGreaterThan($stop, $stopCalc);
     }
 }

@@ -38,13 +38,10 @@ class Log
     var $fp;
 
     /**
-     *
-     *
-     * @param string $log_file
+     * @param $log_file
      */
     function __construct($log_file)
     {
-        //die($log_file);
         if (LOG != 'yes') {
             return;
         }
@@ -59,12 +56,9 @@ class Log
     }
 
     /**
-     *
-     *
-     *
-     *
-     * @param string $log_file
-     * @return Log
+     * @param $type
+     * @param $log_file
+     * @return mixed
      */
     public static function Create($type, $log_file)
     {
@@ -92,7 +86,7 @@ class Log
     }
 
     /**
-     *
+     * @return bool|string
      */
     function _time()
     {
@@ -100,11 +94,9 @@ class Log
     }
 
     /**
-     *
-     *
-     * @param integer $type
-     * @param string $log_file
-     * @return string
+     * @param $type
+     * @param $str
+     * @return bool|string
      */
     function _formatLine($type, $str)
     {
@@ -133,12 +125,7 @@ class Log
     }
 
     /**
-     *
-     *
-     *
-     *
-     * @param integer $type
-     * @param string $log_file
+     * @param $str
      */
     public static function Bugtruck($str)
     {
@@ -151,12 +138,8 @@ class Log
     }
 
     /**
-     *
-     *
-     *
-     *
-     * @param integer $type
-     * @param string $log_file
+     * @param $type
+     * @param $str
      */
     public static function AddLine($type, $str)
     {
@@ -179,15 +162,27 @@ class Log
     }
 
     /**
-     *
-     *
-     * @param integer $type
-     * @param string $log_file
+     * @param $type
+     * @param $str
      */
     function _addLine($type, $str)
     {
         if (fwrite($this->fp, $this->_formatLine($type, $str)) == -1) {
             die('Error writing to log');
         }
+    }
+
+    public static function DeleteDirectory($dir)
+    {
+        if (!file_exists($dir)) return true;
+        if (!is_dir($dir) || is_link($dir)) return unlink($dir);
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') continue;
+            if (!self::deleteDirectory($dir . "/" . $item)) {
+                chmod($dir . "/" . $item, 0777);
+                if (!self::deleteDirectory($dir . "/" . $item)) return false;
+            };
+        }
+        return rmdir($dir);
     }
 }

@@ -8,52 +8,33 @@
  */
 namespace SSGonchar\FastModel\Test\SEUtil;
 
-use PHPUnit_Framework_TestCase;
+use SSGonchar\FastModel\Test\SETestCase;
 use SSGonchar\FastModel\SEModel\Model;
 use ReflectionClass;
 
-class ModelTest extends PHPUnit_Framework_TestCase
+class ModelTest extends SETestCase
 {
     /**
      * @var Model
      */
     private $model;
+    private $user_id;
+    private $user_login;
+    private $user_role_id;
 
     public function setUp()
     {
-        /**
-         * User roles
-         */
-        define('ROLE_GUEST', 0);
+        parent::setUp();
 
-        /**
-         * Localizations
-         */
-        define('DEFAULT_LANG', 'en');
-
-        /**
-         * DB connection settings
-         */
-        define('APP_DBHOST', 'localhost');
-        define('APP_DBNAME', 'test');
-        define('APP_DBUSER', 'dev');
-        define('APP_DBPASS', '123456');
-        define('DB_TIME_ZONE', '0');
-        define('SLOW_QUERY_TIME', 1); // s
-        define('MAX_LENGTH_PER_PARAM', 100);
-
-        /**
-         * Cache settings
-         */
-        define('CACHE_ENABLED', 'yes');
-        define('MEMCACHE_HOST', 'localhost');
-        define('MEMCACHE_PORT', '11211');
+        $this->user_id = 10;
+        $this->user_login = 'ssgonchar';
+        $this->user_role_id = 777;
 
         Model::setSession(array(
             'user' => array(
-                'id' => '4',
-                'login' => 'SSGonchar',
-                'role_id' => ROLE_GUEST,
+                'id' => $this->user_id,
+                'login' => $this->user_login,
+                'role_id' => $this->user_role_id,
             ),
         ));
 
@@ -63,9 +44,9 @@ class ModelTest extends PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $this->assertInstanceOf('\SSGonchar\FastModel\SEUtil\Db\Table', $this->model->table);
-        $this->assertAttributeEquals(4, 'user_id', $this->model);
-        $this->assertAttributeEquals('SSGonchar', 'user_login', $this->model);
-        $this->assertAttributeEquals(ROLE_GUEST, 'user_role', $this->model);
+        $this->assertAttributeEquals($this->user_id, 'user_id', $this->model);
+        $this->assertAttributeEquals($this->user_login, 'user_login', $this->model);
+        $this->assertAttributeEquals($this->user_role_id, 'user_role', $this->model);
     }
 
     public function testSelectList()

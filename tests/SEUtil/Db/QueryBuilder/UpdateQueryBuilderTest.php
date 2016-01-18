@@ -6,7 +6,11 @@
  * Date: 18.01.2016
  * Time: 4:35
  */
-class UpdateQueryBuilderTest extends PHPUnit_Framework_TestCase
+namespace SSGonchar\FastModel\Test\SEUtil\Db\QueryBuilder;
+
+use SSGonchar\FastModel\Test\SETestCase;
+
+class UpdateQueryBuilderTest extends SETestCase
 {
 
 }
