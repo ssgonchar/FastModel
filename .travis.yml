@@ -7,7 +7,7 @@ php:
     - 7.0
 
 # faster builds on new travis setup not using sudo
-sudo: false
+sudo: required
 
 services:
   - memcached
