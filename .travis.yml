@@ -7,7 +7,7 @@ php:
     - 7.0
 
 # faster builds on new travis setup not using sudo
-sudo: required
+sudo: false
 
 services:
   - memcached
@@ -23,8 +23,6 @@ cache:
 
 install:
     - travis_retry composer install --no-interaction --prefer-dist
-    - pecl install memcache
-    - pecl install memcached
 
 before_install:
     - travis_retry composer self-update
