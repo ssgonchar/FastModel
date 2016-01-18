@@ -9,6 +9,10 @@ namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
+/**
+ * Class DeleteQueryBuilder
+ * @package SSGonchar\FastModel\SEUtil\Db\QueryBuilder
+ */
 class DeleteQueryBuilder extends QueryBuilder
 {
     /**

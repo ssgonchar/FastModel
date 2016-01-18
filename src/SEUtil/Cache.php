@@ -84,7 +84,6 @@ class Cache
         if (CACHE_ENABLED == 'no') {
             return false;
         }
-        // 2010.11.01, zharkov:
         $cache = Cache::Create();
         return $cache->_set_data($key, $value, $tag_names, $lifetime);
     }
@@ -142,7 +141,6 @@ class Cache
         if (CACHE_ENABLED == 'no') {
             return true;
         }
-        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_add_key(CACHE_LOCK_PREFIX . $key, true, $lifetime);
@@ -202,7 +200,6 @@ class Cache
         if (CACHE_ENABLED == 'no') {
             return null;
         }
-        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_get_data($key);
@@ -217,7 +214,6 @@ class Cache
         if (CACHE_ENABLED == 'no') {
             return false;
         }
-        // 2010.11.01, zharkov:
 
         $cache = Cache::Create();
         return $cache->_get_key(CACHE_LOCK_PREFIX . $key);
@@ -269,7 +265,6 @@ class Cache
      */
     function _get_key($key)
     {
-        /*$this->ClearKey($key);*/
         if (CACHE_PREFIX !== '') {
             if (!is_array($key)) {
                 $key = CACHE_PREFIX . $key;
@@ -287,22 +282,22 @@ class Cache
         $result = $this->connection->get($key);
 
         if (CACHE_LOG == 'yes') {
-                    if (is_array($key)) {
+            if (is_array($key)) {
                 foreach ($key as $k) {
-                    if (!isset($result[$k]))
+                    if (!isset($result[$k])) {
                         Log::AddLine(LOG_CACHE, "miss k: \t" . var_export($k, true));
-        } else {
-                                            Log::AddLine(LOG_CACHE, "hit k: \t" . var_export($k, true));
+                    } else {
+                        Log::AddLine(LOG_CACHE, "hit k: \t" . var_export($k, true));
                     }
                 }
             } else {
                 if (!isset($result) || $result === false) {
-                                    Log::AddLine(LOG_CACHE, "miss: \t" . var_export($key, true));
+                    Log::AddLine(LOG_CACHE, "miss: \t" . var_export($key, true));
                 } else {
-                                    Log::AddLine(LOG_CACHE, "hit: \t" . var_export($key, true));
+                    Log::AddLine(LOG_CACHE, "hit: \t" . var_export($key, true));
                 }
             }
-
+        }
 
         return $result;
     }

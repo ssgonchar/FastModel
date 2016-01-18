@@ -9,7 +9,10 @@ namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
-
+/**
+ * Class InsertQueryBuilder
+ * @package SSGonchar\FastModel\SEUtil\Db\QueryBuilder
+ */
 class InsertQueryBuilder extends QueryBuilder
 {
     var $type;

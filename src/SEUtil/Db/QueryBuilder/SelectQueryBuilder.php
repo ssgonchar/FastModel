@@ -9,6 +9,10 @@ namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
+/**
+ * Class SelectQueryBuilder
+ * @package SSGonchar\FastModel\SEUtil\Db\QueryBuilder
+ */
 class SelectQueryBuilder extends QueryBuilder
 {
     /**

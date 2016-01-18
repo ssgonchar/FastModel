@@ -17,6 +17,10 @@ use SSGonchar\FastModel\SEUtil\Db\QueryBuilder\ReplaceQueryBuilder;
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder\SelectQueryBuilder;
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder\UpdateQueryBuilder;
 
+/**
+ * Class QueryBuilder
+ * @package SSGonchar\FastModel\SEUtil\Db
+ */
 class QueryBuilder
 {
     /**
@@ -32,7 +36,7 @@ class QueryBuilder
     /**
      * @param $db_connection
      */
-    protected function QueryBuilder($db_connection)
+    protected function __construct($db_connection)
     {
         $this->db_connection = $db_connection;
     }

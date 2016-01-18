@@ -8,6 +8,10 @@
 
 namespace SSGonchar\FastModel\SEUtil\Db;
 
+/**
+ * Class Table
+ * @package SSGonchar\FastModel\SEUtil\Db
+ */
 class Table
 {
     /**
@@ -66,6 +70,7 @@ class Table
      * @var mixed
      */
     var $connection_time_zone = DB_TIME_ZONE;
+    private $name_field;
 
     /**
      *
@@ -74,7 +79,7 @@ class Table
      * @param string $connection_settings
      * @see DatabaseConnection::Create()
      */
-    function Table($table_name, $connection_settings)
+    function __construct($table_name, $connection_settings)
     {
         $this->index_field = 'id';
         $this->name_field = 'name';
@@ -85,24 +90,22 @@ class Table
 
     /**
      *
-     *
-     *
-     * @version 20110622, zharkov:
      */
     function ConnectDatabase()
     {
-        if ($this->is_connected) return;
-        //print_r($this->is_connected);
+        if ($this->is_connected) {
+            return;
+        }
+
         $this->is_connected = true;
-        //print_r($this->is_connected);
-        if (!empty($this->connection_time_zone)) $this->connection_settings['time_zone'] = $this->connection_time_zone;
-        //print_r($this->connection_time_zone);
+
+        if (!empty($this->connection_time_zone)) {
+            $this->connection_settings['time_zone'] = $this->connection_time_zone;
+        }
         $this->db = DatabaseConnection::Create($this->connection_settings);
-        //print_r($this->db);
         $this->db->OpenConnection();
 
         $this->query = QueryBuilder::Create($this->db->connection);
-        //print_r('111');
     }
 
 

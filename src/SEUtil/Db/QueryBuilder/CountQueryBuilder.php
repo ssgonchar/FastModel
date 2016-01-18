@@ -9,6 +9,10 @@ namespace SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
 use SSGonchar\FastModel\SEUtil\Db\QueryBuilder;
 
+/**
+ * Class CountQueryBuilder
+ * @package SSGonchar\FastModel\SEUtil\Db\QueryBuilder
+ */
 class CountQueryBuilder extends QueryBuilder
 {
     /**

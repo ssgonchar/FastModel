@@ -9,9 +9,8 @@
 namespace SSGonchar\FastModel\SEUtil;
 
 /**
- *
- *
- * @static
+ * Class Request
+ * @package SSGonchar\FastModel\SEUtil
  */
 class Request
 {
@@ -250,7 +249,6 @@ class Request
             $result = mb_substr($result, 0, $length, 'UTF-8');
         }
 
-        // 20111103, zharkov:
         $result = self::_parse_external_links($result, $url_go);
 
         if ($strip_slashes)
@@ -411,41 +409,6 @@ class Request
         Log::AddLine(LOG_CUSTOM, "Request::GetHtmlString() result=" . $result);
 
         return $result;
-
-        /* 20120719, zharkov : old version
-                $config = HTMLPurifier_Config::createDefault();
-                $config->set('Cache.SerializerPath',        APP_CACHE);
-                $config->set('URI.Host',                    APP_HOST);
-                $config->set('Core.Encoding',               'UTF-8');
-                $config->set('HTML.Doctype',                'XHTML 1.0 Strict');
-                $config->set('AutoFormat.AutoParagraph',    $auto_paragraph);
-                $config->set('AutoFormat.PurifierLinkify',  true);
-                $config->set('Output.Newline',              "\n");
-
-                $config->set('Core.MaintainLineNumbers',    true);
-                $config->set('Core.CollectErrors',          true);
-
-                $config->set('URI.Munge',                   APP_HOST . '/go/%s');
-
-                if ($allow_youtube)
-                {
-                    $config->set('Filter.YouTube', true);
-                }
-
-                //
-                //$config->set('Core', 'EscapeInvalidTags', true);
-
-                $purifier   = new HTMLPurifier($config);
-                $result     = $purifier->purify($text);
-                $result     = preg_replace('/\<\/p\>(\\n|\\r)+\</u', '</p><', $result);
-
-                Log::AddLine(LOG_CUSTOM, "Request::GetHtmlString() result=" . $result);
-
-                $e = $purifier->context->get('ErrorCollector');
-                Log::AddLine(LOG_CUSTOM, "Request::GetHtmlString() errors=" . $e->getHTMLFormatted($config));
-
-                return $result;
-        */
     }
 
     /**

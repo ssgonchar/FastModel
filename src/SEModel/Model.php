@@ -83,7 +83,7 @@ class Model
          * Set custom connection settings if passed second arg in constructor,
          * else using default settings.
          */
-        $connectionSettings = funct_num_args() > 1 ? func_get_arg(1) : $defaultConnectionSettings;
+        $connectionSettings = func_num_args() > 1 ? func_get_arg(1) : $defaultConnectionSettings;
 
         /**
          * Custom connection settings must be array,
@@ -741,10 +741,7 @@ class Model
                 $result[$id] = $object['data'];
             } else {
                 if (!in_array($id, $ids_not_in_cache) && $id > 0) {
-                    // 20101219, zharkov:
-                {
-                    $ids_not_in_cache[] = $id;
-                }
+                        $ids_not_in_cache[] = $id;
                 }
             }
         }
