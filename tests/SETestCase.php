@@ -14,10 +14,12 @@ abstract class SETestCase extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        /**
-         * User roles
-         */
-        define('ROLE_GUEST', 1);
+        if (!defined(ROLE_GUEST)) {
+            /**
+             * User roles
+             */
+            define('ROLE_GUEST', 1);
+        }
 
         /**
          * Localizations
