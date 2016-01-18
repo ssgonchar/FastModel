@@ -46,9 +46,10 @@ class Cache
      * @param $connection_settings
      * @return bool
      */
-    function _connect($connection_settings)
+    private function _connect($connection_settings)
     {
         $this->connection = new \Memcache();
+        /** @var \Memcache $connection */
         $is_connected = @$this->connection->connect($connection_settings['host'], $connection_settings['port']);
 
         if (!$is_connected) {
@@ -67,7 +68,12 @@ class Cache
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new Cache(array('host' => MEMCACHE_HOST, 'port' => MEMCACHE_PORT));
+            $instance = new Cache(
+                array(
+                    'host' => MEMCACHE_HOST,
+                    'port' => MEMCACHE_PORT,
+                )
+            );
         }
         return $instance;
     }
