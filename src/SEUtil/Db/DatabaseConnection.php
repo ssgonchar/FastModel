@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 4:01
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 4:01
+     */
 
 namespace SSGonchar\FastModel\SEUtil\Db;
 
@@ -63,7 +63,9 @@ class DatabaseConnection
      */
     function OpenConnection()
     {
-        if ($this->is_connected) return;
+        if ($this->is_connected) {
+            return;
+        }
 
         $this->is_connected = true;
 
@@ -73,13 +75,6 @@ class DatabaseConnection
     /**
      *
      *
-     * @param array $connection_settings
-     *
-     *  dbhost:
-     *  dbname:
-     *  dbuser:
-     *  dbpass:
-     *  charset:
      * @see DatabaseConnection::$db
      */
     function _connect()
@@ -293,7 +288,7 @@ class DatabaseConnection
         // MAX_LENGTH_PER_PARAM > 100
         if (CUT_LOG == 'yes') {
             foreach ($params['values'] as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 if (mb_strlen($value) > MAX_LENGTH_PER_PARAM) {
                     $params['values'][$key] = mb_strcut($value, 0, MAX_LENGTH_PER_PARAM) . ' ...';
