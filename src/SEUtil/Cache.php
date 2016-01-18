@@ -179,7 +179,7 @@ class Cache
     /**
      * @param $key
      * @param $value
-     * @param $lifetime
+     * @param integer $lifetime
      * @return bool
      */
     function _set_key($key, $value, $lifetime)

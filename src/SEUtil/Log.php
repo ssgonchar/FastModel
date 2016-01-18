@@ -57,15 +57,20 @@ class Log
 
     /**
      * @param $type
-     * @param $log_file
-     * @return mixed
+     * @param string $log_file
+     * @return Log
      */
     public static function Create($type, $log_file)
     {
-        if ($type == LOG_EMAIL_GRABBER) $key = 4;
-        else if ($type == LOG_SLOW_QUERIES) $key = 3;
-        else if ($type == LOG_CACHE) $key = 2;
-        else                            $key = 1;
+        if ($type == LOG_EMAIL_GRABBER) {
+            $key = 4;
+        } else if ($type == LOG_SLOW_QUERIES) {
+            $key = 3;
+        } else if ($type == LOG_CACHE) {
+            $key = 2;
+        } else {
+            $key = 1;
+        }
 
         static $instance;
         if (!isset($instance)) {
@@ -86,7 +91,7 @@ class Log
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
     function _time()
     {
@@ -96,7 +101,7 @@ class Log
     /**
      * @param $type
      * @param $str
-     * @return bool|string
+     * @return string
      */
     function _formatLine($type, $str)
     {
@@ -138,7 +143,7 @@ class Log
     }
 
     /**
-     * @param $type
+     * @param integer $type
      * @param $str
      */
     public static function AddLine($type, $str)
@@ -174,13 +179,21 @@ class Log
 
     public static function DeleteDirectory($dir)
     {
-        if (!file_exists($dir)) return true;
-        if (!is_dir($dir) || is_link($dir)) return unlink($dir);
+        if (!file_exists($dir)) {
+            return true;
+        }
+        if (!is_dir($dir) || is_link($dir)) {
+            return unlink($dir);
+        }
         foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') continue;
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
             if (!self::deleteDirectory($dir . "/" . $item)) {
                 chmod($dir . "/" . $item, 0777);
-                if (!self::deleteDirectory($dir . "/" . $item)) return false;
+                if (!self::deleteDirectory($dir . "/" . $item)) {
+                    return false;
+                }
             };
         }
         return rmdir($dir);

@@ -23,12 +23,19 @@ class Request
     {
         $result = array();
 
-        if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) $result['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+        if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
+            $result['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+        }
 
-        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) $result['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if (array_key_exists('REMOTE_ADDR', $_SERVER)) $result['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $result['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $result['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
+        }
 
-        if (isset($_COOKIE['__' . CACHE_PREFIX])) $result['PREV_LOGIN'] = $_COOKIE['__' . CACHE_PREFIX];
+        if (isset($_COOKIE['__' . CACHE_PREFIX])) {
+            $result['PREV_LOGIN'] = $_COOKIE['__' . CACHE_PREFIX];
+        }
 
         return $result;
     }
@@ -40,12 +47,14 @@ class Request
      */
     public static function IsAjax()
     {
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']))
-            if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                    if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
                 return true;
+        }
 
-        if (isset($_REQUEST['JsHttpRequest']))
-            return true;
+        if (isset($_REQUEST['JsHttpRequest'])) {
+                    return true;
+        }
 
         return false;
     }
@@ -106,20 +115,26 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param numeric $default
+     * @param double $default
      * @return numeric
      */
     static function _get_numeric_param($name, $params, $default)
     {
-        if (!array_key_exists($name, $params)) return $default;
-        if ($params[$name] == '') return $default;
+        if (!array_key_exists($name, $params)) {
+            return $default;
+        }
+        if ($params[$name] == '') {
+            return $default;
+        }
 
         $value = trim($params[$name]);
         $dig = (substr($value, 0, 1) == '-' ? -1. : 1.);
 
         $result = preg_replace('/[^0-9,\.]/', '', $params[$name]);
 
-        if ($result == '') return $default;
+        if ($result == '') {
+            return $default;
+        }
 
         $parts = preg_split('/(,|\.)/', $result);
         $resnum = 0;
@@ -127,8 +142,12 @@ class Request
         if (count($parts) == 1 && !empty($parts[0])) {
             $resnum = $parts[0];
         } else if (count($parts) == 2) {
-            if (!empty($parts[0])) $resnum = floatval($parts[0]);
-            if (!empty($parts[1])) $resnum += 1. * floatval($parts[1]) / pow(10, strlen($parts[1]));
+            if (!empty($parts[0])) {
+                $resnum = floatval($parts[0]);
+            }
+            if (!empty($parts[1])) {
+                $resnum += 1. * floatval($parts[1]) / pow(10, strlen($parts[1]));
+            }
         }
 
         return $resnum * $dig;
@@ -139,7 +158,6 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param numeric $default_arg
      * @return numeric
      */
     static function GetNumeric($name, $params)
@@ -162,9 +180,10 @@ class Request
     {
         $result = $default;
 
-        if (isset($params[$name]))
-            if (is_numeric($params[$name]))
+        if (isset($params[$name])) {
+                    if (is_numeric($params[$name]))
                 $result = intval($params[$name]);
+        }
 
         return ($result > 1000000000 ? 1000000000 : $result);
     }
@@ -197,9 +216,10 @@ class Request
     {
         $result = $default;
 
-        if (isset($params[$name]))
-            if (getboolval($params[$name]))
+        if (isset($params[$name])) {
+                    if (getboolval($params[$name]))
                 $result = true;
+        }
 
         return $result;
     }
@@ -209,7 +229,6 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param bool $default_arg
      * @return bool
      */
     public static function GetBoolean($name, $params)
@@ -251,11 +270,13 @@ class Request
 
         $result = self::_parse_external_links($result, $url_go);
 
-        if ($strip_slashes)
-            $result = stripslashes($result);
+        if ($strip_slashes) {
+                    $result = stripslashes($result);
+        }
 
-        if ($strip_tags)
-            $result = strip_tags($result);
+        if ($strip_tags) {
+                    $result = strip_tags($result);
+        }
 
         return $result;
     }
@@ -285,9 +306,6 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param bool $default
-     * @param integer $length
-     * @param bool $strip_tags
      * @return string
      */
     static function GetHtmlString($name, $params, $url_go = false)
@@ -304,13 +322,17 @@ class Request
 
         //
         preg_match_all('#<iframe[^<]*youtube\.com\/embed\/([a-zA-Z0-9_]+)[^<]*><\/iframe>#si', $text, $youtubes);
-        foreach ($youtubes[0] as $key => $match) $text = str_replace($match, '{' . $youtubes[1][$key] . '}', $text);
+        foreach ($youtubes[0] as $key => $match) {
+            $text = str_replace($match, '{' . $youtubes[1][$key] . '}', $text);
+        }
 
         //
         $text = self::_purify_html($text, $auto_paragraph = false, $allow_youtube = false, $url_go);
 
         //
-        foreach ($youtubes[0] as $key => $match) $text = str_replace('{' . $youtubes[1][$key] . '}', $match, $text);
+        foreach ($youtubes[0] as $key => $match) {
+            $text = str_replace('{' . $youtubes[1][$key] . '}', $match, $text);
+        }
 
         return $text;
     }
@@ -355,8 +377,8 @@ class Request
      *
      *
      * @param mixed $text
-     * @param mixed $auto_paragraph
-     * @param mixed $allow_youtube
+     * @param boolean $auto_paragraph
+     * @param boolean $allow_youtube
      * @return mixed
      */
     static function _purify_html($text, $auto_paragraph = false, $allow_youtube = false, $url_go = false)
@@ -414,7 +436,6 @@ class Request
     /**
      *
      *
-     * @param string $str
      */
     function GetStringArray($name, $param)
     {
@@ -430,8 +451,6 @@ class Request
      *
      *
      * @param array $files
-     * @param string $custom
-     * @param string $custom,...
      * @return array
      */
     static function GetFile($files)
@@ -455,7 +474,7 @@ class Request
             $result[$key] = $current;
         }
 
-        if (count($result) > 0) ;
+        if (count($result) > 0);
         if ($result['size'] > 0)
             return $result;
 
@@ -471,7 +490,9 @@ class Request
      */
     static function GetStringDate($name, $value, $default = null, $include_time = false)
     {
-        if (!array_key_exists($name, $value)) return null;
+        if (!array_key_exists($name, $value)) {
+            return null;
+        }
 
         if (($timestamp = strtotime($value[$name])) === -1) {
             return $default == null ? now() : $default;
@@ -484,9 +505,6 @@ class Request
      *
      *
      * @param string $param
-     * @param integer $Day
-     * @param integer $Month
-     * @param integer $Year
      * @return string
      */
     static function GetDate($param, $params)
@@ -516,9 +534,6 @@ class Request
      *
      *
      * @param string $param
-     * @param integer $Day
-     * @param integer $Month
-     * @param integer $Year
      * @return string
      */
     static function GetJaggedDate($param)
@@ -537,10 +552,12 @@ class Request
         $Month = Request::GetInteger($param . 'Month', $Month);
         $Year = Request::GetInteger($param . 'Year', $Year);
 
-        if ($Year == 0)
-            $Month = 0;
-        if ($Month == 0)
-            $Day = 0;
+        if ($Year == 0) {
+                    $Month = 0;
+        }
+        if ($Month == 0) {
+                    $Day = 0;
+        }
 
         if (!checkdate(($Month > 0 ? $Month : 1), ($Day > 0 ? $Day : 1), ($Year > 0 ? $Year : 1))) {
             $Day = date('d');
@@ -564,12 +581,15 @@ class Request
         $Month = Request::GetInteger($param . 'Month', $params);
         $Year = Request::GetInteger($param . 'Year', $params);
 
-        if (empty($Day) || empty($Month) || empty($Year)) return $default;
+        if (empty($Day) || empty($Month) || empty($Year)) {
+            return $default;
+        }
 
-        if (checkdate($Month, $Day, $Year))
-            $date = mktime(0, 0, 0, $Month, $Day, $Year);
-        else
-            $date = time();
+        if (checkdate($Month, $Day, $Year)) {
+                    $date = mktime(0, 0, 0, $Month, $Day, $Year);
+        } else {
+                    $date = time();
+        }
 
         return date('Y-m-d H:i:s', $date);
     }
@@ -578,8 +598,7 @@ class Request
      *
      *
      *
-     * @param string $param
-     * @param array $value
+     * @param string $params
      * @return string
      * /
      */
@@ -611,7 +630,7 @@ class Request
      *
      *
      *
-     * @param mixed $text
+     * @param string $text
      */
     static function _parse_external_links($text, $url_go = false)
     {
@@ -647,8 +666,9 @@ class Request
 
                         if ($width > $height) {
                             $height = null;
-                        } else
-                            $width = null;
+                        } else {
+                                                    $width = null;
+                        }
 
                         if (!empty($width)) {
                             $width = $width > 500 ? 500 : $width;
