@@ -102,6 +102,7 @@ class Table
         if (!empty($this->connection_time_zone)) {
             $this->connection_settings['time_zone'] = $this->connection_time_zone;
         }
+
         $this->db = DatabaseConnection::Create($this->connection_settings);
         $this->db->OpenConnection();
 
@@ -110,10 +111,8 @@ class Table
 
 
     /**
-     *
-     *
-     * @param resource $resource
-     * @return array
+     * @param $resource
+     * @return array|null
      */
     private function _fetch_row($resource)
     {
@@ -122,9 +121,7 @@ class Table
 
 
     /**
-     *
-     *
-     * @param resource $resource
+     * @param $resource
      * @return array
      */
     public function _fetch_array($resource) //!must be private
@@ -139,10 +136,8 @@ class Table
     }
 
     /**
-     *
-     *
-     * @param resource $resource
-     * @return array
+     * @param $resource
+     * @return array|null
      */
     private function _fetch_raw_array($resource)
     {
@@ -150,13 +145,7 @@ class Table
     }
 
     /**
-     *
-     *
-     * @param resource $resource
      * @return array
-     *
-     * new php 5.3.1 version
-     * @deprecated
      */
     function _fetch_multi_set()
     {
@@ -185,48 +174,13 @@ class Table
         return $res;
     }
 
-
-    /*	old version till 20100201
-    function _fetch_multi_set($resource)
-    {
-        if (!$resource) return null;
-
-        $res = array();
-
-        do
-        {
-            if ($result = mysqli_store_result($this->db->connection))
-            {
-                $set = array();
-
-                while ($row = mysqli_fetch_assoc($result))
-                {
-                    $set[] = $row;
-                }
-                mysqli_free_result($result);
-
-                $res[] = $set;
-            }
-        } while (mysqli_next_result($this->db->connection));
-
-        return $res;
-    }
-    */
-
     /**
-     *
-     *
-     * @param array $params
-     * @see QueryBuilder::Prepare()
+     * @param $params
      * @return resource
      */
     private function _exec_query($params)
     {
-        //echo "<p><b>" . $this->query->Prepare($params) . "</b></p>";
         $this->ConnectDatabase();
-        //print_r($this->query->Prepare($params));
-        //if($sp_name)
-        //dg($params);
         return $this->db->query($this->query->Prepare($params));
     }
 
@@ -238,21 +192,12 @@ class Table
      */
     private function _exec_multi_query($params)
     {
-        //echo "<p><b>" . $this->query->Prepare($params) . "</b></p>";
-        //print_r('11');
         $this->ConnectDatabase();
-        //return $this->db->multiquery($this->query->Prepare($params));
-
-        // 20130211, d10n:
-        //$tmp = $this->db->multiquery($this->query, $params);
-        //print_r('111');
         return $this->db->multiquery($this->query, $params);
     }
 
     /**
-     *
-     *
-     * @param resource $params
+     * @param $query
      * @return resource
      */
     public function _exec_raw_query($query) //! must be private
@@ -264,12 +209,7 @@ class Table
 
 
     /**
-     *
-     *
-     *
-     *
-     *
-     * @param mixed $params
+     * @param $params
      * @return array
      */
     private function _assure_is_array($params)
@@ -283,15 +223,8 @@ class Table
 
 
     /**
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     * @param mixed $params
-     * @return array
+     * @param array $arg
+     * @return null
      */
     public function SelectSingle($arg = array())
     {
