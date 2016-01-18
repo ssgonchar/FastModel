@@ -1,3 +1,4 @@
+/phing-latest.phar
 build
 composer.lock
 docs
