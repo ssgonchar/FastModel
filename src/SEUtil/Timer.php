@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ssgonchar
- * Date: 18.01.2016
- * Time: 4:21
- */
+     * Created by PhpStorm.
+     * User: ssgonchar
+     * Date: 18.01.2016
+     * Time: 4:21
+     */
 
 namespace SSGonchar\FastModel\SEUtil;
 
