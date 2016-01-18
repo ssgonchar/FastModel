@@ -49,9 +49,10 @@ class ModelTest extends SETestCase
         $this->assertAttributeEquals($this->user_role_id, 'user_role', $this->model);
     }
 
+    /*
     public function testSelectList()
     {
         $result = $this->model->SelectList();
         $this->assertGreaterThan(0, count($result));
-    }
+    }*/
 }
