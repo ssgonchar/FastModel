@@ -174,8 +174,8 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param integer $default_arg
-     * @return integer
+     * @return int
+     * @internal param int $default_arg
      */
     static function GetInteger($name, $params)
     {
@@ -265,10 +265,10 @@ class Request
      *
      * @param string $name
      * @param array $params
-     * @param bool $default
-     * @param integer $length
-     * @param bool $strip_tags
      * @return string
+     * @internal param bool $default
+     * @internal param int $length
+     * @internal param bool $strip_tags
      */
     static function GetString($name, $params)
     {

@@ -10,7 +10,8 @@ namespace SSGonchar\FastModel\SEModel;
 
 use SSGonchar\FastModel\SEUtil\Cache;
 use SSGonchar\FastModel\SEUtil\Db\Table;
-use SSGonchar\FastModel\SEUtil\Request;
+
+//use SSGonchar\FastModel\SEUtil\Request;
 
 /**
  * Class Model
@@ -64,6 +65,11 @@ class Model
     public $lang = DEFAULT_LANG;
 
     /**
+     * @var array
+     */
+    public static $session;
+
+    /**
      * @param $tableName
      */
     public function __construct($tableName)
@@ -103,10 +109,11 @@ class Model
         /**
          * Set user current user information.
          */
-        if (array_key_exists('user', $_SESSION)) {
-            $this->user_id = Request::GetInteger('id', $_SESSION['user'], 0);
-            $this->user_login = Request::GetString('login', $_SESSION['user'], '');
-            $this->user_role = Request::GetString('role_id', $_SESSION['user'], ROLE_GUEST);
+        $session = self::getSession();
+        if (array_key_exists('user', $session)) {
+            $this->user_id = $session['user']['id'];
+            $this->user_login = $session['user']['login'];
+            $this->user_role = $session['user']['role_id'];
         }
 
         /**
@@ -118,6 +125,19 @@ class Model
          * Set current session language.
          */
         $this->lang = isset($_REQUEST['lang']) ? Request::GetString('lang', $_REQUEST, '', 2) : $this->lang;
+    }
+
+    public static function setSession($session)
+    {
+        self::$session = $session;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSession()
+    {
+        return self::$session;
     }
 
     /**

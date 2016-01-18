@@ -11,7 +11,7 @@ require_once("../vendor/autoload.php");
 /**
  * User roles
  */
-define('ROLE_GUEST', 0);
+define('ROLE_GUEST', 1);
 
 /**
  * Localizations
@@ -36,11 +36,25 @@ define('CACHE_ENABLED', 'yes');
 define('MEMCACHE_HOST', 'localhost');
 define('MEMCACHE_PORT', '11211');
 
-use SSGonchar\FastModel\SEModel\Model;
+use SSGonchar\FastModel\SEMail\Email;
+
+if (array_key_exists('user', $_SESSION)) {
+
+}
+$_SESSION = array(
+    'user' => array(
+        'id' => '4',
+        'login' => 'SSGonchar',
+        'role_id' => ROLE_GUEST,
+    )
+);
+
+\SSGonchar\FastModel\SEModel\Model::setSession($_SESSION);
+var_dump(\SSGonchar\FastModel\SEModel\Model::getSession());
 
 /** @var Model $model */
-$model = new Model('fm_emails');
+$email = new Email('emails');
 
-$model->Select(1);
-
-xdebug_var_dump($model);
+var_dump($email);
+var_dump($email->getList());
+var_dump($email->get(3));
